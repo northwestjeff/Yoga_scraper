@@ -6,15 +6,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
-
 import time
 
-#  Previous search URLs
-# url = 'https://www.yogaalliance.org/Directory-Registrants?type=School&location=Oregon,%20United%20States'
-# url = 'https://www.yogaalliance.org/Directory-Registrants?type=School&location=OR,%20United%20States'
-# url = "https://www.yogaalliance.org/Directory-Registrants?type=School&location=Washington,%20United%20States"
-url = "https://www.yogaalliance.org/Directory-Registrants?type=School&location=Eugene,%20OR,%20United%20States"
-# url = "https://www.yogaalliance.org/Directory-Registrants?type=School&location=United%20States" # ALL USA
+#  Search URL from website.  To use a new URL, take the URL from yogaalliance.org after searching a city or state
+url = 'https://www.yogaalliance.org/Directory-Registrants?type=School&location=OR,%20United%20States'
 
 # create new instance of chrome
 driver = webdriver.Chrome()
@@ -23,8 +18,6 @@ driver = webdriver.Chrome()
 driver.get(url)
 
 list_directory = []
-# file = open("Yoga/yogaresults.txt", 'w')
-
 
 def crawl():
     timeout = 10
@@ -32,7 +25,6 @@ def crawl():
         WebDriverWait(driver, timeout).until(
             EC.visibility_of_element_located((By.XPATH, "//div[@class='ya_school-name']")))
     except TimeoutException:
-        print("Timed out waiting for page to loan")
         driver.quit()
 
 
@@ -47,17 +39,10 @@ def get_names():
     link_name = [x.text for x in link_parent]
     make_list(zip(link_name, addresses))
 
-    with open("Yoga/yogafile.csv", "w") as f:
+    with open("yogafile.csv", "w") as f:
         wr = csv.writer(f)
         for row in list_directory:
             wr.writerow(row)
-
-
-# def remove_n(list):
-#     for i in list:
-#         if "\n" in i[1]:
-#             i[1].split("\n")
-
 
 def next_page():
     try:

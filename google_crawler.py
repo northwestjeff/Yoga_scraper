@@ -4,43 +4,10 @@ import time
 
 from yogatest import directory_dict
 
-
 """
 google_crawler.py imports the directory_dict from yoga_scraper and pulls phone number data
 from a google search.
 """
-
-#  TEST DATA DELETE WHEN FINISHED
-# directory_dict = {"1": {"name": "Asmi yoga",
-#                         "address": "blah1",
-#                         "city": "Bend",
-#                         "state": "barfoo1"},
-#                   "2": {"name": "Lotus Seed",
-#                         "address": "blah2",
-#                         "city": "Portland",
-#                         "state": "barfoo2"}
-#                   }
-
-
-
-# def crawl():
-#     timeout = 10
-#     try:
-#         WebDriverWait(driver, timeout).until(
-#             EC.visibility_of_element_located((By.XPATH, "//input[@class='q']")))
-#         print("found Q")
-#     except TimeoutException:
-#         print("Timed out waiting for page to loan")
-#         driver.quit()
-
-
-# def search_terms():
-#     for i in directory_dict.keys():
-#         city = directory_dict[i]["city"]
-#         name = directory_dict[i]["name"]
-#         phone = "phone number"
-#         keys_input = "{} {} {}".format(name, city, phone)
-#         print("search term".format(keys_input))
 
 
 def phone_element(driver):
@@ -51,7 +18,6 @@ def phone_element(driver):
     parent_element = driver.find_element_by_xpath("//span[@data-local-attribute='d3ph']")
     child_element = parent_element.find_element_by_tag_name("span")
     phone_number = child_element.text
-    print("phone number found: {}".format(phone_number))
     return phone_number
 
 
@@ -63,11 +29,8 @@ def search(term, driver):
     """
     time.sleep(3)
     input_element = driver.find_element_by_name("q")
-    print("found lower case q")
     input_element.send_keys(term)
-    print("submitting " + term)
     submit = driver.find_element_by_name("btnK")
-    print("found submit")
     submit.click()
 
 
@@ -84,16 +47,14 @@ def scrape(keys_input, dict):
     try:
         search(keys_input, driver)
         dict["phone"] = phone_element(driver)
-        print("found phone: {}".format(dict["phone"]))
     except:
-        print("no phone found")
         dict["phone"] = "none"
     driver.close()
 
 
 def run():
     """
-    Exectures the scrape
+    Executes the scrape
     """
     for i in list(directory_dict):
         city = directory_dict[i]["city"]

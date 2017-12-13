@@ -1,13 +1,4 @@
 import csv
-# from selenium import webdriver
-# from selenium.webdriver.common.by import By
-# from selenium.webdriver.support.ui import WebDriverWait
-# from selenium.webdriver.support import expected_conditions as EC
-# from selenium.common.exceptions import TimeoutException
-# from selenium.common.exceptions import NoSuchElementException
-# from selenium.common.exceptions import StaleElementReferenceException
-#
-# import requests, html5lib, time
 
 directory_dict = {}
 
@@ -17,8 +8,6 @@ filereader = csv.reader(file, delimiter=",")
 yoga_dir = [row for row in filereader]
 
 
-
-# remove "map" in the location.  The last five characters pulled in from the scrape
 def remove_map():
     """
     Scraper brought in a "map" string. This removes it
