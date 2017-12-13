@@ -2,7 +2,7 @@ import csv
 
 directory_dict = {}
 
-file = open("Yoga/yogafile.csv")
+file = open("yogafile.csv")
 filereader = csv.reader(file, delimiter=",")
 
 yoga_dir = [row for row in filereader]

@@ -70,6 +70,7 @@ next_enabled = True
 while next_enabled == True:
     crawl()
     get_names()
+    time.sleep(5)
     next_enabled = next_page()
     time.sleep(7)
 driver.quit()
